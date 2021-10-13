@@ -1,0 +1,85 @@
+package tp3ejercicio6;
+
+
+enum paper{
+    A4,
+    OFICIO,
+    CARTA
+}
+ 
+enum preferences{
+    COLOR,
+    GRISES
+}
+ 
+public class Documento {
+    private String name;
+    private int numberLeaves;
+    private paper paperSize;
+    private int numberCopies;
+    private preferences color;
+ 
+    public Documento() {
+    }
+ 
+    public Documento(String name, int numberLeaves, paper paperSize, int numberCopies, preferences color) {
+        this.name = name;
+        this.numberLeaves = numberLeaves;
+        this.paperSize = paperSize;
+        this.numberCopies = numberCopies;
+        this.color = color;
+    }
+ 
+    public String getName() {
+        return name;
+    }
+ 
+    public void setName(String name) {
+        this.name = name;
+    }
+ 
+    public int getNumberLeaves() {
+        return numberLeaves;
+    }
+ 
+    public void setNumberLeaves(int numberLeaves) {
+        this.numberLeaves = numberLeaves;
+    }
+ 
+    public paper getPaperSize() {
+        return paperSize;
+    }
+ 
+    public void setPaperSize(paper paperSize) {
+        this.paperSize = paperSize;
+    }
+ 
+    public int getNumberCopies() {
+        return numberCopies;
+    }
+ 
+    public void setNumberCopies(int numberCopies) {
+        this.numberCopies = numberCopies;
+    }
+ 
+    public preferences getColor() {
+        return color;
+    }
+ 
+    public void setColor(preferences color) {
+        this.color = color;
+    }
+ 
+    @Override
+    public String toString() {
+        return "Documento{" + 
+                "\n Nombre=" + name + 
+                "\n Hojas=" + numberLeaves +
+                "\n Papel=" + paperSize + 
+                "\n Numero de Copias=" + numberCopies + 
+                "\n Escala=" + color +
+                "\n}\n";
+    }
+ 
+    
+}
