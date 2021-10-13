@@ -1,0 +1,154 @@
+package tp3ejercicio2;
+
+
+public class TP3Ejercicio2 {
+
+    
+    private Queue<Character> queueLetters;
+    private int contA=0,contE=0,contI=0,contO=0,contU=0;
+    
+    public static void main(String[] args) {
+        (new TP3Ejercicio2()).open();
+    }
+    
+    public void open(){
+        char option;
+        do{
+            System.out.println("Queue de letras, vocales a mayúsculas");
+            System.out.println("(a) Carga manual");
+            System.out.println("(b) Carga automatica");
+            System.out.print("Opcion: ");
+            option=Helper.getChar();
+        }while(validateOption(option));
+    }
+    
+    public boolean validateOption(char option){
+        switch(option){
+            case 'a','A' -> {
+                registerManual();
+                return false;
+            }
+            case 'b','B' -> {
+                registerAutomatic();
+                return false;
+            }
+                default -> {
+                    System.out.println("Error...");
+                    System.out.println("Intentelo de nuevo");
+                    return true;
+                }
+        }
+    }
+
+    public void registerAutomatic(){
+        int amount=Helper.random.nextInt(40-15+1)+15;
+        char lowercaseVowels,uppercaseVowels,vowelToAdd;
+        setQueueLetters(new Queue<>(amount));
+        for(int i=0;i<amount;i++){
+            uppercaseVowels=(char) (Helper.random.nextInt(90-65+1)+65);
+            lowercaseVowels=(char) (Helper.random.nextInt(122-97+1)+97);           
+            vowelToAdd=Helper.random.nextInt(2)==0? lowercaseVowels:uppercaseVowels;           
+            getQueueLetters().add(vowelToAdd);
+        }       
+        System.out.println("Se genero la siguiente Queue: ");
+        System.out.println(getQueueLetters());
+        // Resolucion del enunciado
+        System.out.println("La nueva Queue es la siguiente: ");
+        setQueueLetters(deQueueCount(getQueueLetters()));
+        System.out.println(getQueueLetters());
+        System.out.println("Cantidades de A= "+this.contA);
+        System.out.println("Cantidades de E= "+this.contE);
+        System.out.println("Cantidades de I= "+this.contI);
+        System.out.println("Cantidades de O= "+this.contO);
+        System.out.println("Cantidades de U= "+this.contU); 
+    }
+    
+    public void registerManual(){
+        System.out.print("Ingrese la cantidad de letras a cargar :");
+        int amount = Helper.getIntegerPositive();
+        char letter;
+        setQueueLetters(new Queue<>(amount));
+        for(int i=0;i<amount;i++){
+            do{
+                System.out.print("Ingrese letra: ");
+                letter=Helper.getChar();
+            }while(validateLetter(letter));
+            getQueueLetters().add(letter);
+        }
+        System.out.println("Se cargo la siguiente Queue: ");
+        System.out.println(getQueueLetters());
+        System.out.println("La nueva Queue es la siguiente: ");
+        setQueueLetters(deQueueCount(getQueueLetters()));
+        System.out.println(getQueueLetters());
+        System.out.println("Cantidades de A= "+this.contA);
+        System.out.println("Cantidades de E= "+this.contE);
+        System.out.println("Cantidades de I= "+this.contI);
+        System.out.println("Cantidades de O= "+this.contO);
+        System.out.println("Cantidades de U= "+this.contU); 
+    }
+ 
+    public boolean validateLetter(char letter){
+        letter = Character.toUpperCase(letter);
+        int valueASCII= (int) letter;
+        if(valueASCII != 165 && (valueASCII < 65 || valueASCII > 90)){
+            System.out.println("Error...");
+            System.out.println("El valor ingresado no es una letra");
+            return true;
+        }else{
+            return false;
+        }       
+    }
+    
+    public Queue deQueueCount(Queue<Character> queueLetters){
+        int leng=queueLetters.size();
+        char removeLetter;
+        for(int i=0;i<leng;i++){
+            removeLetter=queueLetters.remove();
+            if(isVowels(removeLetter)){
+                queueLetters.add(Character.toUpperCase(removeLetter));
+            }else{
+                queueLetters.add(removeLetter);
+            }   
+        }
+        return queueLetters;
+ 
+    }
+    
+    public boolean isVowels(char removeLetter){
+         switch(removeLetter){
+                case 'a','A' -> {
+                    this.contA++;
+                    return true;
+            }
+                case 'e','E' -> {
+                    this.contE++;
+                    return true;
+            }
+                case 'i','I' -> {
+                    this.contI++;
+                    return true;
+            }
+                case 'o','O' -> {
+                    this.contO++;
+                    return true;
+            }
+                case 'u','U' -> {
+                    this.contU++;
+                    return true;
+            }
+                    default -> {
+                        return false;
+            }
+            }  
+    }
+ 
+    public Queue<Character> getQueueLetters() {
+        return queueLetters;
+    }
+ 
+    public void setQueueLetters(Queue<Character> queueLetters) {
+        this.queueLetters = queueLetters;
+    }
+    
+    
+}
